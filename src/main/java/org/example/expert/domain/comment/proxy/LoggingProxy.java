@@ -4,13 +4,12 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
 @Slf4j
 @NoArgsConstructor
-public class LoggingController implements MethodInterceptor {
+public class LoggingProxy implements MethodInterceptor {
 
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
