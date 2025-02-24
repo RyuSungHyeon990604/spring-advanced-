@@ -23,17 +23,13 @@ public class LoggingAspect {
     //@Around("execution(* org.example.expert.domain.comment.controller.CommentAdminController.*(..))")
     @Around("execution(* org.example.expert.domain.*.*.*AdminController.*(..))")
     public Object logging(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("@Around");
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         try {
             //preHandle
             log.info("request : {}:{}", request.getMethod(), request.getRequestURI());
-            log.info("User Id : {}", request.getAttribute("userId"));
-            log.info("User Role : {}", request.getAttribute("userRole"));
-            Object proceed = joinPoint.proceed();
-            //afterCompletion
-            log.info("처리완료");
-            return proceed;
+            log.info("method : {}", joinPoint.getSignature().getName());
+            log.info("User Id : {}, User Role : {}", request.getAttribute("userId"),  request.getAttribute("userRole"));
+            return joinPoint.proceed();
         }finally {
             //afterCompletion
             log.info("response : {}:{}", request.getMethod(), request.getRequestURI());
