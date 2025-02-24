@@ -1,5 +1,6 @@
 package org.example.expert.domain.comment.controller;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.comment.service.CommentAdminService;
 import org.springframework.web.bind.annotation.DeleteMapping;
