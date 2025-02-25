@@ -1,5 +1,6 @@
 package org.example.expert.config;
 
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ public class FilterConfig {
         FilterRegistrationBean<JwtFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtFilter(jwtUtil));
         registrationBean.addUrlPatterns("/*"); // 필터를 적용할 URL 패턴을 지정합니다.
+        registrationBean.setOrder(2);
 
         return registrationBean;
     }
