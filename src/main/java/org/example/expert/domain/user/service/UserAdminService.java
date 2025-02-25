@@ -18,6 +18,10 @@ public class UserAdminService {
     @Transactional
     public void changeUserRole(long userId, UserRoleChangeRequest userRoleChangeRequest) {
         User user = userRepository.findById(userId).orElseThrow(() -> new InvalidRequestException("User not found"));
+        //기존과 동일한 UserRole 일경우 업데이트를 수행하지않는다.
+        if(user.getUserRole() == UserRole.of(userRoleChangeRequest.getRole())) {
+            throw new InvalidRequestException("기존과 동일한 권한으로 변경할수없습니다.");
+        }
         user.updateRole(UserRole.of(userRoleChangeRequest.getRole()));
     }
 }
