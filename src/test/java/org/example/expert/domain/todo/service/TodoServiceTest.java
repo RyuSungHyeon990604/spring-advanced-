@@ -43,9 +43,6 @@ class TodoServiceTest {
     @Mock
     private WeatherClient weatherClient;
 
-    @Mock
-    private UserRepository userRepository;
-
     @InjectMocks
     private TodoService todoService;
 
@@ -69,10 +66,8 @@ class TodoServiceTest {
         //given
         AuthUser authUser = new AuthUser(user.getId(), user.getEmail(), user.getUserRole());
         TodoSaveRequest todoSaveRequest = new TodoSaveRequest("title","contents");
-        UserResponse userResponse = new UserResponse(user.getId(), user.getEmail());
         String weather = "good";
 
-        given(userRepository.findById(authUser.getId())).willReturn(Optional.of(user));
         given(weatherClient.getTodayWeather()).willReturn(weather);
         given(todoRepository.save(any(Todo.class))).willReturn(todo);
 
@@ -86,23 +81,6 @@ class TodoServiceTest {
 
         //save가 실제로 1번 호출됐는지 확인
         verify(todoRepository, times(1)).save(any(Todo.class));
-    }
-
-    @Test
-    @DisplayName("saveTodo() 에서 사용자 검증시 예외가 발생했을때 테스트")
-    void saveTodo_todo를_등록하려는_사용자를_검증하는도중_예외가_발생했을때(){
-        //given
-        AuthUser authUser = new AuthUser(user.getId(), user.getEmail(), user.getUserRole());
-        given(userRepository.findById(authUser.getId())).willThrow(InvalidRequestException.class);
-
-        //when
-        assertThrows(InvalidRequestException.class, ()->{
-            todoService.saveTodo(authUser, new TodoSaveRequest("title","contents"));
-        });
-
-        //then
-        //save로직이 수행되면 안됨
-        verify(todoRepository, times(0)).save(any(Todo.class));
     }
 
     @Test
