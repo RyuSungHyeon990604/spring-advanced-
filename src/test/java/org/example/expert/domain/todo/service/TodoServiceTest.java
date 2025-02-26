@@ -3,6 +3,7 @@ package org.example.expert.domain.todo.service;
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
+import org.example.expert.domain.common.exception.ServerException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
@@ -81,6 +82,21 @@ class TodoServiceTest {
 
         //save가 실제로 1번 호출됐는지 확인
         verify(todoRepository, times(1)).save(any(Todo.class));
+    }
+
+    @Test
+    void saveTodo_날씨를가져오는도중ServerException이발생했다면오류반환(){
+        //given
+        AuthUser authUser = new AuthUser(user.getId(), user.getEmail(), user.getUserRole());
+        TodoSaveRequest todoSaveRequest = new TodoSaveRequest("title","contents");
+
+        given(weatherClient.getTodayWeather()).willThrow(ServerException.class);
+
+        //when & then
+
+        assertThrows(ServerException.class, ()->todoService.saveTodo(authUser, todoSaveRequest));
+
+
     }
 
     @Test
