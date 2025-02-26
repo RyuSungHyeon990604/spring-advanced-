@@ -104,7 +104,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void signin_AuthException발생시401반환() throws Exception {
+    void signin_AuthException발생시Unauthorized반환() throws Exception {
         // given
         SigninRequest signinRequest = new SigninRequest("a@a.com", "wrongPassword");
 
@@ -121,7 +121,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void signin_InvalidRequestException발생시400반환() throws Exception {
+    void signin_InvalidRequestException발생시BadRequest반환() throws Exception {
         // given
         SigninRequest signinRequest = new SigninRequest("a@a.com", "Password");
 
