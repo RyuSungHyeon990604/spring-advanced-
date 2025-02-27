@@ -1,7 +1,5 @@
-# 정의한 문제와 해결 과정
-
----
-
+<details>
+<summary>Lv5. 정의한 문제와 해결 과정</summary>
 
 ## **1. 문제 인식 및 정의**
 
@@ -304,3 +302,9 @@ public ManagerSaveResponse saveManager(AuthUser authUser, long todoId, ManagerSa
 ```
 
 ---
+</details>
+
+테스트 커버리지
+![img.png](img.png)
+
+
