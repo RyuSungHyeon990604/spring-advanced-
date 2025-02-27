@@ -307,5 +307,6 @@ public ManagerSaveResponse saveManager(AuthUser authUser, long todoId, ManagerSa
 
 테스트 커버리지
 ![img.png](img.png)
+![img_1.png](img_1.png)
 
 
